@@ -1,0 +1,13 @@
+{
+    "appName": {
+        "message": "Split file"
+    },
+
+    "appDescription": {
+        "message": "A split file extension"
+    },
+
+    "defaultTitle": {
+        "message": "Any title"
+    }
+}
