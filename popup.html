@@ -3,36 +3,70 @@
 <head>
   <title></title>
   <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="css/vendor/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="css/popup.css">
 </head>
 <body>
-    <form id="form">
-        <input type="file" id="chooseFile">
-        <span id="fileInfo"></span>
-
-        <div>
-          <label for="toBytes">Quero dividir em arquivos de até </label>
-          <input type="number" id="toBytes" min="0" value="1" style="width: 50px;">
-          <select id="convertToBytes">
-            <option value="kiloByteToBytes">KB</option>
-            <option value="megaByteToBytes" selected>MB</option>
-            <option value="gigaByteToBytes">GB</option>
-          </select>
-          <label>cada.</label>
+  <div class="ui grid container">
+    <div class="column">
+      <div class="ui piled segment">
+        <div class="ui black ribbon label">
+          <i class="file text outline icon"></i>
+          <span id="headerText"></span>
         </div>
+        <form id="form" class="ui large form">
+          <div class="inline field">
+          <input type="file" id="chooseFile" class="ui button">
+          <div class="floating ui mini label" id="helpTitle">?</div>
+          <span id="fileInfo"></span>
+          </div>
 
-        <div>
-          <label for="appendText">Também adicionar o seguinte texto ao final de cada arquivo:</label>
-          <input type="text" id="appendText">
-        </div>
+          <div class="inline field">
+          <label id="lbToBytes" for="toBytes"></label>
+            <input type="number" id="toBytes" min="0" value="1" style="width: 70px;">
+            <select id="convertToBytes">
+              <option value="kiloByteToBytes">KB</option>
+              <option value="megaByteToBytes" selected>MB</option>
+              <option value="gigaByteToBytes">GB</option>
+            </select>
+            <label id="lbEach"></label>
+          </div>
 
-        <input type="submit" id="splitBtn" style="display: none;" value="Dividir">
+          <div class="inline field">
+            <label id="lbAppendText" for="appendText"></label>
+            <input type="text" id="appendText">
+
+            <button type="submit" id="splitBtn" class="ui blue large button labeled icon" style="visibility: hidden;">
+              <i class="fork icon"></i>
+              <span id="splitBtnText"></span>
+            </button>
 
 
-        <p><input type="reset" id="resetBtn" style="display: none;" value="Limpar"></p>
-        <div id="downloads">
-        </div>
+            <button type="reset" id="resetBtn" class="ui red large button labeled icon" style="visibility: hidden;">
+              <i class="refresh icon"></i>
+              <span id="resetBtnText"></span>
+            </button>
+          </div>
 
-    </form>
+          <div class="inline field">
+            <div id="messages">
+              <i id="iconMessage"></i>
+              <span id="contentMessage"></span>
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div id="downloads" class="ui segment divided items" style="visibility: hidden;"></div>
+      <div class="ui inverted section divider"></div>
+      <div class="ui text aligned right header">
+            <a href="https://github.com/achambel/split-file" target="_blank">
+              <i class="circular github icon"></i>
+            </a>
+      </div>
+    </div>
+    </div>
+
     <script src="js/prototypes.js"></script>
     <script src="js/upload.js"></script>
 </body>

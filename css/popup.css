@@ -1,0 +1,12 @@
+body {
+ background: rgba(84,84,84,0.3);
+}
+
+form {
+  margin-top: 3px !important;
+}
+
+.column {
+  margin-top: 3% !important;
+}
+

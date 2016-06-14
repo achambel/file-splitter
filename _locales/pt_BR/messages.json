@@ -1,13 +1,55 @@
 {
-    "appName": {
+    "extName": {
         "message": "Split file"
     },
 
-    "appDescription": {
+    "extDescription": {
         "message": "A split file extension"
     },
 
     "defaultTitle": {
         "message": "Any title"
+    },
+
+    "headerText": {
+      "message": "Split File - Dividir arquivos de texto"
+    },
+
+    "helpTitle": {
+      "message": "O arquivo será lido por linhas até atingir o limite escolhido"
+    },
+
+    "readerStart": {
+      "message": "Dividindo arquivo, por favor, aguarde..."
+    },
+
+    "readerSuccess": {
+      "message": "Arquivo dividido com sucesso! Clique em cada um para baixá-lo."
+    },
+
+    "lbToBytes": {
+      "message": "Quero dividir em arquivos de até "
+    },
+
+    "lbEach": {
+      "message": "cada."
+    },
+
+    "lbAppendText": {
+      "message": "Também adicionar o seguinte texto ao final de cada arquivo:"
+    },
+
+    "splitBtnText": {
+      "message": "Dividir"
+    },
+
+    "fileInfo": {
+      "message": "Arquivo:"
+    },
+
+    "resetBtnText": {
+      "message": "Redefinir"
     }
+
+
 }
