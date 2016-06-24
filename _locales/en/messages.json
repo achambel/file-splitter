@@ -1,0 +1,58 @@
+{
+    "extName": {
+        "message": "File splitter"
+    },
+
+    "extDescription": {
+        "message": "Divide text files easily with the File splitter"
+    },
+
+    "extShortName": {
+        "message": "File splitter"
+    },
+
+    "defaultTitle": {
+        "message": "Open File splitter"
+    },
+
+    "headerText": {
+      "message": "File splitter - Splitter text files"
+    },
+
+    "helpTitle": {
+      "message": "The file will be read by lines until the chosen limit"
+    },
+
+    "readerStart": {
+      "message": "File splitting, please wait ..."
+    },
+
+    "readerSuccess": {
+      "message": "successfully split file! Click on each to download it."
+    },
+
+    "lbToBytes": {
+      "message": "I want to divide in up files "
+    },
+
+    "lbEach": {
+      "message": "each."
+    },
+
+    "lbAppendText": {
+      "message": "Also add the following text to the end of each file:"
+    },
+
+    "splitBtnText": {
+      "message": "Divide"
+    },
+
+    "fileInfo": {
+      "message": "File:"
+    },
+
+    "resetBtnText": {
+      "message": "Redefine"
+    }
+
+}

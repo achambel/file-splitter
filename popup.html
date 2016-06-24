@@ -23,13 +23,16 @@
 
           <div class="inline field">
           <label id="lbToBytes" for="toBytes"></label>
-            <input type="number" id="toBytes" min="0" value="1" style="width: 70px;">
+            <input type="number" id="toBytes" min="1" value="1" style="width: 90px;">
             <select id="convertToBytes">
               <option value="kiloByteToBytes">KB</option>
               <option value="megaByteToBytes" selected>MB</option>
               <option value="gigaByteToBytes">GB</option>
             </select>
             <label id="lbEach"></label>
+
+            <label for="zip">Resultado como Zip?</label>
+            <input type="checkbox" id="zip">
           </div>
 
           <div class="inline field">
@@ -46,6 +49,11 @@
               <i class="refresh icon"></i>
               <span id="resetBtnText"></span>
             </button>
+
+            <span id="timer" class="ui small label" style="visibility: hidden;">
+              <i class="clock icon"></i>
+              <span id="times"></span>
+            </span>
           </div>
 
           <div class="inline field">
@@ -69,5 +77,6 @@
 
     <script src="js/prototypes.js"></script>
     <script src="js/upload.js"></script>
+    <script src="js/vendor/jszip.min.js"></script>
 </body>
 </html>

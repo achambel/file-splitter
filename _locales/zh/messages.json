@@ -1,0 +1,58 @@
+{
+    "extName": {
+        "message": "File splitter"
+    },
+
+    "extDescription": {
+        "message": "除以文字與文件很容易 File splitter"
+    },
+
+    "extShortName": {
+        "message": "File splitter"
+    },
+
+    "defaultTitle": {
+        "message": "開放 File splitter"
+    },
+
+    "headerText": {
+      "message": "File splitter - 除數文本文件"
+    },
+
+    "helpTitle": {
+      "message": "該文件將由線讀取，直到所選擇的限制"
+    },
+
+    "readerStart": {
+      "message": "文件共享，請稍候..."
+    },
+
+    "readerSuccess": {
+      "message": "成功分割文件！點擊每個下載。"
+    },
+
+    "lbToBytes": {
+      "message": "我想分享的文件 "
+    },
+
+    "lbEach": {
+      "message": "每個。"
+    },
+
+    "lbAppendText": {
+      "message": "還以下文本添加到每個文件的結尾："
+    },
+
+    "splitBtnText": {
+      "message": "分"
+    },
+
+    "fileInfo": {
+      "message": "文件："
+    },
+
+    "resetBtnText": {
+      "message": "重新定義"
+    }
+
+}

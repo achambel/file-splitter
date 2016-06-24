@@ -1,0 +1,58 @@
+{
+    "extName": {
+        "message": "File splitter"
+    },
+
+    "extDescription": {
+        "message": "Testo dividere i file facilmente con il File splitter"
+    },
+
+    "extShortName": {
+        "message": "File splitter"
+    },
+
+    "defaultTitle": {
+        "message": "Aprire il File splitter"
+    },
+
+    "headerText": {
+      "message": "File splitter - File di testo Divisore"
+    },
+
+    "helpTitle": {
+      "message": "Il file verrà letto dalle linee fino al limite prescelto"
+    },
+
+    "readerStart": {
+      "message": "La condivisione di file in corso ..."
+    },
+
+    "readerSuccess": {
+      "message": "File di successo diviso! Clicca su ogni per scaricarlo."
+    },
+
+    "lbToBytes": {
+      "message": "Voglio condividere in un massimo di file "
+    },
+
+    "lbEach": {
+      "message": "ogni."
+    },
+
+    "lbAppendText": {
+      "message": "Anche aggiungere il seguente testo alla fine di ogni file:"
+    },
+
+    "splitBtnText": {
+      "message": "Dividere"
+    },
+
+    "fileInfo": {
+      "message": "File:"
+    },
+
+    "resetBtnText": {
+      "message": "Ridefinire"
+    }
+
+}

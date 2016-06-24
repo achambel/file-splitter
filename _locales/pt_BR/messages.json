@@ -1,18 +1,22 @@
 {
     "extName": {
-        "message": "Split file"
+        "message": "File splitter"
     },
 
     "extDescription": {
-        "message": "A split file extension"
+        "message": "Divida arquivos de texto facilmente com o File splitter"
+    },
+
+    "extShortName": {
+        "message": "File splitter"
     },
 
     "defaultTitle": {
-        "message": "Any title"
+        "message": "Abrir o File splitter"
     },
 
     "headerText": {
-      "message": "Split File - Dividir arquivos de texto"
+      "message": "File splitter - Divisor de arquivos de texto"
     },
 
     "helpTitle": {
@@ -50,6 +54,5 @@
     "resetBtnText": {
       "message": "Redefinir"
     }
-
 
 }
