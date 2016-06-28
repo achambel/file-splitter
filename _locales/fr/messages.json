@@ -39,6 +39,10 @@
       "message": "chaque."
     },
 
+    "lbZip": {
+      "message": "Résultat comme Zip ?"
+    },
+
     "lbAppendText": {
       "message": "Également ajouter le texte suivant à la fin de chaque fichier:"
     },

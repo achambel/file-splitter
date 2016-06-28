@@ -39,6 +39,10 @@
       "message": "each."
     },
 
+    "lbZip": {
+      "message": "Result like Zip ?"
+    },
+
     "lbAppendText": {
       "message": "Also add the following text to the end of each file:"
     },

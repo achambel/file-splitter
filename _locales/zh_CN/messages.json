@@ -39,6 +39,10 @@
       "message": "每個。"
     },
 
+    "lbZip": {
+      "message": "結果就像郵編？"
+    },
+
     "lbAppendText": {
       "message": "還以下文本添加到每個文件的結尾："
     },
