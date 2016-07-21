@@ -19,8 +19,7 @@ var file;
 var indexFile = 1;
 var $t = chrome.i18n;
 
-var startByte;
-var endByte;
+var startByte, endByte, lastSlice;
 
 headerText.textContent = $t.getMessage('headerText');
 helpTitle.title = $t.getMessage('helpTitle');
@@ -69,11 +68,12 @@ function resetDownloads() {
 function splitFile() {
     if(!file || toBytes.value <= 0) return;
 
+    indexFile = 1;
     chooseFile.disabled = true;
     timer = setInterval(showTimer, 1000);
 
     var reader = new FileReader();
-    var lastSlice = 0;
+    lastSlice = 0;
     linesToSave = '';
     startByte = 0;
     endByte = (2).megaByteToBytes();
@@ -91,13 +91,7 @@ function splitFile() {
 
     reader.onloadend = function(e) {
         if(e.target.readyState == FileReader.DONE) {
-            var lastIndex = e.target.result.lastIndexOf("\n");
-            var data = e.target.result.substr(0, lastIndex);
-            readyToSave(data);
-
-            lastSlice += data.length + 1;
-            startByte = lastSlice;
-            endByte = lastSlice +  (2).megaByteToBytes(); // read with chunk up to 2MB
+            readyToSave(e.target.result);
             readBytes(this);
         }
     }
@@ -111,27 +105,26 @@ function readyToSave(str) {
     var fileBuffer = str.split("\n");
 
     fileBuffer.forEach(function(line) {
-        var currentLengthLine = linesToSave.length + (line+"\n").length + appendText.value.length;
+        var currentBufferToSave = linesToSave.length + (line+"\n").length + appendText.value.length;
 
-        if(currentLengthLine <= limit){
+        if(currentBufferToSave <= limit){
             linesToSave += line+"\n";
-        }
-        else{
-            saveFile(linesToSave);
-            linesToSave = line+"\n";
         }
 
     });
 
-    if((endByte >= file.size) && (linesToSave.length > 0)) {
-        saveFile(linesToSave);
-        indexFile = 1;
-    }
+    if(linesToSave.length > 0) saveFile(linesToSave);
+
+    lastSlice += linesToSave.length;
+    linesToSave = '';
 
 
 }
 
 function readBytes(fr){
+    startByte = lastSlice;
+    endByte = lastSlice +  (2).megaByteToBytes(); // read with chunk up to 2MB
+
     var slice = file.slice(startByte, endByte);
 
     if(slice.size === 0) {
