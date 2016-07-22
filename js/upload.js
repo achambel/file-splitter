@@ -74,7 +74,6 @@ function splitFile() {
 
     var reader = new FileReader();
     lastSlice = 0;
-    linesToSave = '';
     startByte = 0;
     endByte = (2).megaByteToBytes();
     initialTime = new Date();
@@ -102,22 +101,23 @@ function splitFile() {
 
 function readyToSave(str) {
     var limit = limitOfBytes();
-    var fileBuffer = str.split("\n");
+    var fileBuffer = str.split("\r\n");
+    var linesToSave = '';
 
     fileBuffer.forEach(function(line) {
-        var currentBufferToSave = linesToSave.length + (line+"\n").length + appendText.value.length;
+        var currentBufferToSave = linesToSave.length + (line+"\r\n").length + appendText.value.length;
 
         if(currentBufferToSave <= limit){
-            linesToSave += line+"\n";
+            linesToSave += line+"\r\n";
         }
 
     });
 
-    if(linesToSave.length > 0) saveFile(linesToSave);
-
-    lastSlice += linesToSave.length;
-    linesToSave = '';
-
+    if(linesToSave.length > 0) {
+        lastSlice += linesToSave.length;
+        linesToSave = linesToSave.slice(0, linesToSave.lastIndexOf("\r\n")); // remove last new line added
+        saveFile(linesToSave);
+    }
 
 }
 
@@ -146,7 +146,7 @@ function setMessage(text, className, iconClassName) {
 }
 
 function saveFile(data) {
-    var data = data? data+appendText.value : data;
+    var data = appendText.value.length >0 ? data+appendText.value : data;
 
     if(zipElement.checked) {
         zip.file(`${indexFile}-${file.name}`, new Blob([data]));
@@ -192,7 +192,7 @@ function updateFileInfo() {
         var sizeInKB = `<label class="ui tag label">${(file.size.bytesToKiloByte()).toLocaleString()} KB</label>`;
         var sizeInMB = `<label class="ui teal tag label">${(file.size.bytesToMegaByte()).toLocaleString()} MB</label>`;
         var sizeInGB = `<label class="ui brown tag label">${(file.size.bytesToGigaByte()).toLocaleString()} GB</label>`;
-        fileInfo.innerHTML = `<label>${$t.getMessage('fileInfo')}</label> ${file.name} ${sizeInKB} ${sizeInMB} ${sizeInGB}`;
+        fileInfo.innerHTML = `<label>${$t.getMessage('fileInfo')}</label> ${sizeInKB} ${sizeInMB} ${sizeInGB}`;
     }
     else {
         fileInfo.textContent = '';
