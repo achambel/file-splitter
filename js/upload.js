@@ -18,8 +18,17 @@ var resetBtnText = document.getElementById('resetBtnText');
 var file;
 var indexFile = 1;
 var $t = chrome.i18n;
-
 var startByte, endByte, lastSlice;
+var newLine;
+getPlatformInfo().then((info) => {
+
+    if(info.os.toLowerCase() == 'win') {
+        newLine = "\r\n";
+    }
+    else {
+        newLine = "\n";
+    }
+});
 
 headerText.textContent = $t.getMessage('headerText');
 helpTitle.title = $t.getMessage('helpTitle');
@@ -101,21 +110,21 @@ function splitFile() {
 
 function readyToSave(str) {
     var limit = limitOfBytes();
-    var fileBuffer = str.split("\r\n");
+    var fileBuffer = str.split(newLine);
     var linesToSave = '';
 
     fileBuffer.forEach(function(line) {
-        var currentBufferToSave = linesToSave.length + (line+"\r\n").length + appendText.value.length;
+        var currentBufferToSave = (linesToSave+line+newLine+appendText.value).length;
 
         if(currentBufferToSave <= limit){
-            linesToSave += line+"\r\n";
+            linesToSave += line+newLine;
         }
 
     });
 
     if(linesToSave.length > 0) {
         lastSlice += linesToSave.length;
-        linesToSave = linesToSave.slice(0, linesToSave.lastIndexOf("\r\n")); // remove last new line added
+        linesToSave = linesToSave.slice(0, linesToSave.lastIndexOf(newLine)); // remove last new line added
         saveFile(linesToSave);
     }
 
@@ -123,7 +132,7 @@ function readyToSave(str) {
 
 function readBytes(fr){
     startByte = lastSlice;
-    endByte = lastSlice +  (2).megaByteToBytes(); // read with chunk up to 2MB
+    endByte = lastSlice + (2).megaByteToBytes(); // read with chunk up to 2MB
 
     var slice = file.slice(startByte, endByte);
 
@@ -146,7 +155,7 @@ function setMessage(text, className, iconClassName) {
 }
 
 function saveFile(data) {
-    var data = appendText.value.length >0 ? data+appendText.value : data;
+    var data = appendText.value.length > 0 ? data+newLine+appendText.value : data;
 
     if(zipElement.checked) {
         zip.file(`${indexFile}-${file.name}`, new Blob([data]));
@@ -235,4 +244,11 @@ function showTimer() {
     var time = timeElapsed(initialTime, new Date());
     timerElement.style.visibility = 'visible';
     document.getElementById('times').textContent = `${time.hours}:${time.minutes}:${time.secs}`;
+}
+
+function getPlatformInfo() {
+    return new Promise((resolve, reject) => {
+        chrome.runtime.getPlatformInfo((info) => resolve(info));
+    });
+
 }
