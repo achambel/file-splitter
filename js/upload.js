@@ -75,11 +75,14 @@ function resetDownloads() {
 }
 
 function splitFile() {
-    if(!file || toBytes.value <= 0) return;
+    if(!file || toBytes.value < 0) return;
 
     indexFile = 1;
     chooseFile.disabled = true;
     timer = setInterval(showTimer, 1000);
+    limit = limitOfBytes();
+    fileBuffer = '';
+    linesToSave = [];
 
     var reader = new FileReader();
     lastSlice = 0;
@@ -109,24 +112,25 @@ function splitFile() {
 }
 
 function readyToSave(str) {
-    var limit = limitOfBytes();
-    var fileBuffer = str.split(newLine);
-    var linesToSave = '';
+    var hasNewLine = str.lastIndexOf(newLine);
 
-    fileBuffer.forEach(function(line) {
-        var currentBufferToSave = (linesToSave+line+newLine+appendText.value).length;
+    fileBuffer = hasNewLine == -1 ? str : str.slice(0, str.lastIndexOf(newLine) + 1);
+    lastSlice += fileBuffer.length;
 
-        if(currentBufferToSave <= limit){
-            linesToSave += line+newLine;
+    fileBuffer.split(newLine).forEach( (line) => {
+        var currentLength = (linesToSave + line + newLine + appendText.value).length;
+
+        if(currentLength <= limit) {
+            linesToSave += line + newLine;
         }
-
+        else {
+            saveFile(linesToSave);
+            linesToSave = line + newLine;
+        }
     });
 
-    if(linesToSave.length > 0) {
-        lastSlice += linesToSave.length;
-        linesToSave = linesToSave.slice(0, linesToSave.lastIndexOf(newLine)); // remove last new line added
+    if(linesToSave.length && endByte > file.size)
         saveFile(linesToSave);
-    }
 
 }
 
@@ -155,10 +159,11 @@ function setMessage(text, className, iconClassName) {
 }
 
 function saveFile(data) {
-    var data = appendText.value.length > 0 ? data+newLine+appendText.value : data;
+    var data = data.slice(0, data.lastIndexOf(newLine)); // remove last new line added
+    data = appendText.value.length > 0 ? data+newLine+appendText.value : data;
 
     if(zipElement.checked) {
-        zip.file(`${indexFile}-${file.name}`, new Blob([data]));
+        zip.file(getFileName(), new Blob([data]));
     }
     else{
         createDownloadLink({data: data, zip: false});
@@ -174,7 +179,7 @@ function saveZip() {
 
 function createDownloadLink(link) {
     var blob = link.zip? link.data : new Blob([link.data]);
-    var fileDownload = link.zip? `${file.name}.zip` : `${indexFile}-${file.name}`;
+    var fileDownload = link.zip? `${file.name}.zip` : getFileName();
     var div = document.createElement('div');
     var fileExport = document.createElement('a');
     var icon = document.createElement('i');
@@ -219,7 +224,7 @@ function updateSplitBtn() {
 
 function limitOfBytes() {
     var fn = window['Number']['prototype'][convertToBytes.value];
-    if (typeof fn === 'function') return fn.call(parseInt(toBytes.value));
+    if (typeof fn === 'function') return fn.call(parseFloat(toBytes.value));
 }
 
 function timeElapsed(initialTime, finalTime) {
@@ -251,4 +256,18 @@ function getPlatformInfo() {
         chrome.runtime.getPlatformInfo((info) => resolve(info));
     });
 
+}
+
+function padLength() {
+    return Math.ceil(file.size / limitOfBytes()).toString().length;
+}
+
+function lpad(n, width, z) {
+  z = z || '0';
+  n = n + '';
+  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+}
+
+function getFileName() {
+    return `${lpad(indexFile, padLength())}-${file.name}`;
 }
