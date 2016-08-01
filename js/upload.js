@@ -25,6 +25,9 @@ getPlatformInfo().then((info) => {
     if(info.os.toLowerCase() == 'win') {
         newLine = "\r\n";
     }
+    else if(info.os.toLowerCase() == 'mac') {
+        newLine = "\r";
+    }
     else {
         newLine = "\n";
     }
@@ -117,7 +120,7 @@ function readyToSave(str) {
     fileBuffer = hasNewLine == -1 ? str : str.slice(0, str.lastIndexOf(newLine) + 1);
     lastSlice += fileBuffer.length;
 
-    fileBuffer.split(newLine).forEach( (line) => {
+    fileBuffer.split(newLine).filter((item) => item.length).forEach( (line) => {
         var currentLength = (linesToSave + line + newLine + appendText.value).length;
 
         if(currentLength <= limit) {
@@ -129,7 +132,7 @@ function readyToSave(str) {
         }
     });
 
-    if(linesToSave.length && endByte > file.size)
+    if(linesToSave.length && lastSlice >= file.size)
         saveFile(linesToSave);
 
 }
@@ -160,7 +163,7 @@ function setMessage(text, className, iconClassName) {
 
 function saveFile(data) {
     var data = data.slice(0, data.lastIndexOf(newLine)); // remove last new line added
-    data = appendText.value.length > 0 ? data+newLine+appendText.value : data;
+    data = appendText.value.length ? data + newLine + appendText.value : data;
 
     if(zipElement.checked) {
         zip.file(getFileName(), new Blob([data]));
