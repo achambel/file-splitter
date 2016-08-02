@@ -163,7 +163,7 @@ function setMessage(text, className, iconClassName) {
 
 function saveFile(data) {
     // TODO: fix when last line is blank
-    //var data = (lastSlice >= file.size) ? data : data.slice(0, data.lastIndexOf(newLine)); // remove last new line added
+    var data = data.slice(0, data.lastIndexOf(newLine)); // remove last new line added
     data = appendText.value.length ? data + newLine + appendText.value : data;
 
     if(zipElement.checked) {
