@@ -117,10 +117,10 @@ function splitFile() {
 function readyToSave(str) {
     var hasNewLine = str.lastIndexOf(newLine);
 
-    fileBuffer = hasNewLine == -1 ? str : str.slice(0, str.lastIndexOf(newLine) + 1);
-    lastSlice += fileBuffer.length;
+    fileBuffer = hasNewLine == -1 ? str : str.slice(0, str.lastIndexOf(newLine));
+    lastSlice += (fileBuffer+newLine).length;
 
-    fileBuffer.split(newLine).filter((item) => item.length).forEach( (line) => {
+    fileBuffer.split(newLine).forEach( (line) => {
         var currentLength = (linesToSave + line + newLine + appendText.value).length;
 
         if(currentLength <= limit) {
@@ -162,7 +162,8 @@ function setMessage(text, className, iconClassName) {
 }
 
 function saveFile(data) {
-    var data = data.slice(0, data.lastIndexOf(newLine)); // remove last new line added
+    // TODO: fix when last line is blank
+    //var data = (lastSlice >= file.size) ? data : data.slice(0, data.lastIndexOf(newLine)); // remove last new line added
     data = appendText.value.length ? data + newLine + appendText.value : data;
 
     if(zipElement.checked) {
